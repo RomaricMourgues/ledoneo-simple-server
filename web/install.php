@@ -10,7 +10,7 @@ if(!@DB::select("users", ["username" => "admin"])[0]){
         "username" => "admin",
         "password" => password_hash("admin", PASSWORD_BCRYPT),
         "is_admin" => true,
-        "access" => []
+        "variables_groups" => []
     ]);
 }
 

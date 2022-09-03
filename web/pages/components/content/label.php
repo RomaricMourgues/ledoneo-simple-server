@@ -1,0 +1,1 @@
+<div class="label" style="font-weight: bold; background: #BBC; padding: 8px 20px; margin: 0px -20px; margin-bottom: 8px"><?= $variable["name"] ?></div>

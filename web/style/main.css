@@ -319,6 +319,10 @@ input.has_error {
   color: #f00;
 }
 
+.success {
+  color: #0a0;
+}
+
 select {
   height: 40px;
   border: 1px solid #ccc;

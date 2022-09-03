@@ -2,7 +2,16 @@
 
 class DB {
 
-    static function select($table, $query) {
+    static function autoIncrement($table, $key = "id") {
+        $data = DB::load($table);
+        $id = 0;
+        foreach($data as $line){
+            $id = max($id, $line[$key]);
+        }
+        return $id + 1;
+    }
+
+    static function select($table, $query = []) {
         $data = DB::load($table);
         return array_values(array_filter($data, function($v, $k) use ($query) {
             return DB::testQuery($v, $query);
