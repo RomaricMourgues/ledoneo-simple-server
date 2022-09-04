@@ -1,3 +1,4 @@
 .dccache
 database
 .DS_Store
+web/exports/*

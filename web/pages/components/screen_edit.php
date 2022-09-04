@@ -89,7 +89,7 @@ if(@$_POST["name"]){
 
 <hr/>
 
-<div class="label">Preview <a href="#" onclick="refreshPreview()">refresh</a></div>
+<div class="label">Preview <a href="#" onclick="refreshPreview(true)">refresh</a></div>
 <iframe id="preview_frame" src="/screen.php?id=<?= intval($_GET['screen_id']) ?>&preview=1" style="width: 600px; height: 400px; border: 0px;"></iframe>
 
 <br/><br/>
@@ -125,10 +125,13 @@ function updateEditorValue() {
  */
 
 var oldValue = "";
-function refreshPreview() {
-    const newValue = editor.getValue().replace(/<\?=?(php)?/gm, "{{").replace(/\?>/gm, "}}");
-    if(oldValue !== newValue){
+var oldValueStyle = "";
+function refreshPreview(force) {
+    const newValue = editor.getValue();
+    const newValueStyle = editor_style.getValue();
+    if(force || oldValue !== newValue || oldValueStyle !== newValueStyle){
         oldValue = newValue;
+        oldValueStyle = newValueStyle;
         updateEditorValue();
         const formattedFormData = new FormData(document.getElementById("screen_form"));
         formattedFormData.append('draft', '1');
@@ -137,6 +140,9 @@ function refreshPreview() {
             method: 'POST',
             body: formattedFormData
         });
+    }
+    if(force){
+        document.getElementById("preview_frame").contentWindow.location.reload();
     }
 }
 
