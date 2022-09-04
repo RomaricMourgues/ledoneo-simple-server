@@ -4,11 +4,13 @@ This is a very simple screen builder with ability for users to live edit content
 
 This does not have any database and is to be used for very simple purposes.
 
-### Install
+### Install and run
 
-Unzip the demo database in database.zip (it should create a database folder)
+1. Unzip the demo database in database.zip (it should create a database folder with .json in it)
 
-### Run
+2. `docker compose up -d`
+
+### Run as developer
 
 1. In a terminal `cd web/; php -S localhost:8000`
 
