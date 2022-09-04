@@ -5,6 +5,7 @@ if(!@$_GET["preview"]){
 
 require("../database.php");
 
+$settings = DB::get("settings", ["id" => 1]);
 $screen = DB::get("screens", ["id" => intval($_GET["id"])]);
 
 if(@$_GET["preview"]){
@@ -42,6 +43,9 @@ function array_carrousel($array, $delay = 5, $padding = 4){
 <html>
     <head>
         <?php require(__DIR__."/pages/common/screen_head.php") ?>
+        <style>
+            <?= @$settings["style"] ?>
+        </style>
         <style>
             <?= @$screen["style"] ?>
         </style>

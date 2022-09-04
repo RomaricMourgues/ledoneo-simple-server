@@ -1,15 +1,29 @@
 <?php 
 
+if(@!$CURRENT_USER["is_admin"]){
+    die();
+}
+
 if(@$_POST["action"] === "style"){
     DB::upsert("settings", ["id" => 1, "style" => $_POST["style"]]);
 }
 
-error_log(json_encode($_FILES["backup"]));
-
 if(@$_POST["action"] === "import" && @$_FILES["backup"]){
-    error_log("HHHH");
-    $zip = @$_FILES["backup"];
-    error_log($zip);
+    $zip = new ZipArchive;
+    if ($zip->open(@$_FILES["backup"]["tmp_name"]) === TRUE) {
+        $zip->extractTo(__DIR__ . "/../../database/");
+        $zip->close();
+        ?>
+
+        Importation réussie ! Redirection...
+
+        <script>setTimeout(() => document.location = '/?logout=1', 2000);</script>
+        <?php
+
+        die();
+    } else {
+        echo 'Importation échouée.';
+    }
 }
 
 if(@$_POST["action"] === "export"){
@@ -39,8 +53,6 @@ $settings = DB::get("settings", ["id" => 1]);
 <div class="page">
     <div class="title">Paramètres</div>
 
-
-
     <div class="form">
         <div class="label">Exporter / Importer</div>
         <br/>
@@ -52,7 +64,7 @@ $settings = DB::get("settings", ["id" => 1]);
         </form> 
         <br/>
 
-        <form action="" method="POST">
+        <form action="" method="POST" enctype="multipart/form-data">
             Importer les données depuis un fichier zip (écrase les données actuelles !)<br/>
             <input type="hidden" name="action" value="import" />
             <input style="display: inline-block; width: 200px;" type="file" name="backup" />
