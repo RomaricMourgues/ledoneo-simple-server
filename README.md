@@ -63,6 +63,12 @@ For instance with CURL:
 
 `curl -XPOST -H 'content-type: application/json' http://localhost:8000/api.php -d '{"group": 5, "username": "admin", "password": "admin", "data": {"securite_message": "Incendie !"}}'`
 
+### Update the software
+
+1. `git pull`
+
+2. `docker compose up -d --build`
+
 ### Run it as developer
 
 1. In a terminal `cd web/; php -S localhost:8000`
