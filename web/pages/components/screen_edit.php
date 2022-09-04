@@ -28,6 +28,7 @@ if(@$_POST["name"]){
     $screen["id"] = intval(@$screen["id"] ?: DB::autoIncrement("screens"));
     $screen["name"] = $_POST["name"];
     $screen["content"] = $_POST["content"];
+    $screen["style"] = $_POST["style"];
     $screen["variables_groups"] = @explode(",", str_replace(" ", "", $_POST["variables_groups"])) ?: [];
 
     if(@$_POST["draft"]) {
@@ -54,7 +55,12 @@ if(@$_POST["name"]){
     <input name="variables_groups" value="<?= join(", ", @$screen["variables_groups"]?:[]) ?>" placeholder="1, 2, 6" />
     <br/>
 
-    <div class="label">Designer</div>
+    <div class="label">Style (css)</div>
+    <div id="container_style" style="height:400px;border:1px solid black;"></div>
+    <input type="hidden" id="container_style_value" name="style"/>
+
+
+    <div class="label">HTML/PHP</div>
     <div id="container" style="height:400px;border:1px solid black;"></div>
     <input type="hidden" id="container_value" name="content"/>
 
@@ -102,10 +108,16 @@ require(["vs/editor/editor.main"], () => {
     language: 'php',
     theme: 'vs-light',
   });
+  window.editor_style = monaco.editor.create(document.getElementById('container_style'), {
+    value: `<?= @$screen["style"] ?: "" ?>`,
+    language: 'css',
+    theme: 'vs-light',
+  });
 });
 
 function updateEditorValue() {
     document.getElementById('container_value').value = editor.getValue();
+    document.getElementById('container_style_value').value = editor_style.getValue();
 }
 
 /**

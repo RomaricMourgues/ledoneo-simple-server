@@ -13,9 +13,17 @@ if(@$_GET["preview"]){
 
 $content = [];
 foreach($screen["variables_groups"] as $group){
+    $all_allowed = @DB::get("variables_groups", ["id" => intval($group)])["variables"] ?: [];
     $_content = DB::get("variables_values", ["id" => intval($group)]) ?: [];
     $_content = @$_content["values"] ?: [];
-    $content = array_merge($content, $_content);
+    foreach($_content as $key => $value){
+        foreach($all_allowed as $allowed){
+            if($allowed["var_name"] === $key){
+                $content[$key] = $value;
+                break;
+            }
+        }
+    }
 }
 
 function array_carrousel($array, $delay = 5, $padding = 4){
@@ -34,6 +42,9 @@ function array_carrousel($array, $delay = 5, $padding = 4){
 <html>
     <head>
         <?php require(__DIR__."/pages/common/screen_head.php") ?>
+        <style>
+            <?= @$screen["style"] ?>
+        </style>
     </head>
     <body>
         <div id="content">

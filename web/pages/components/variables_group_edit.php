@@ -102,12 +102,13 @@ if(@$_POST["name"]){
  * Variables
  */
 
-var variables = <?= @json_encode($group["variables"]) ?: "[]" ?>;
+var variables = <?= @json_encode($group["variables"]) ?: "[]" ?> || [];
 
 function addVar() {
     variables.push({
         id: variables.map(u=>u.id).reduce((a, c) => Math.max(a, c), 0) + 1,
         name: "",
+        var_name: "",
         type: "input"
     });
     variables.sort((a, b) => a.id - b.id);

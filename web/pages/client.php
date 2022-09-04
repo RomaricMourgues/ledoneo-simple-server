@@ -40,6 +40,7 @@ $variables_groups = DB::select("variables_groups", []);
       <div onclick="document.location='/?page=variables_groups'" class="section">Groupes de variables</div>
       <div onclick="document.location='/?page=screens'" class="section">Écrans</div>
       <div onclick="document.location='/?page=users'" class="section">Utilisateurs</div>
+      <div onclick="document.location='/?page=settings'" class="section">Paramètres</div>
     <?php } ?>
     <div onclick="document.location='/?page=account'" class="section">Mon compte</div>      
 
@@ -52,6 +53,7 @@ $variables_groups = DB::select("variables_groups", []);
         <?php if(@$user["is_admin"]){ @$_GET["page"] === "screens" ? require(__DIR__ . "/screens.php") : ""; } ?>
         <?php if(@$user["is_admin"]){ @$_GET["page"] === "users" ? require(__DIR__ . "/users.php") : ""; } ?>
         <?php if(@$user["is_admin"]){ @$_GET["page"] === "variables_groups" ? require(__DIR__ . "/variables_groups.php") : ""; } ?>
+        <?php if(@$user["is_admin"]){ @$_GET["page"] === "settings" ? require(__DIR__ . "/settings.php") : ""; } ?>
 
     </div>
 
