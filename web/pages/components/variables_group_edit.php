@@ -13,7 +13,7 @@ if($editing){
 
 if(@$_POST["delete"]){
     DB::delete("variables_groups", ["id"=>intval($_GET["group_id"])]);
-    header("Location:/?page=variables_groups");
+    ?><script>document.location = "/?page=variables_groups";</script><?php die();
 }
 
 $hasError = false;
@@ -25,7 +25,7 @@ if(@$_POST["name"]){
 
     if(!$hasError){
         DB::upsert("variables_groups", $group);
-        header("Location:/?page=variables_groups");
+        ?><script>document.location = "/?page=variables_groups";</script><?php die();
     }
 
 }

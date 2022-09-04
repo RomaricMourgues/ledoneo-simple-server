@@ -16,7 +16,7 @@ if($editing){
 
 if(@$_POST["delete"]){
     DB::delete("users", ["id"=>intval($_GET["user_id"])]);
-    header("Location:/?page=users");
+    ?><script>document.location = "/?page=users";</script><?php die();
 }
 
 $hasError = false;
@@ -33,7 +33,7 @@ if(@$_POST["username"]){
 
     if(!$hasError){
         DB::upsert("users", $user);
-        header("Location:/?page=users");
+        ?><script>document.location = "/?page=users";</script><?php die();
     }
 
 }

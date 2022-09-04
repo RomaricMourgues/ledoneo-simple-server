@@ -14,7 +14,7 @@ if($editing){
 
 if(@$_POST["delete"]){
     DB::delete("screens", ["id"=>intval($_GET["screen_id"])]);
-    header("Location:/?page=screens");
+    ?><script>document.location = "/?page=screens";</script><?php die();
 }
 
 $hasError = false;
@@ -37,7 +37,7 @@ if(@$_POST["name"]){
     }else{
         if(!$hasError){
             DB::upsert("screens", $screen);
-            header("Location:/?page=screens&action=edit&screen_id=" . $screen["id"]);
+            ?><script>document.location = "/?page=screens&action=edit&screen_id=<?= $screen["id"] ?>";</script><?php die();
         }
     }
 

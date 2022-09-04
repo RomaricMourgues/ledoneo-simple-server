@@ -29,12 +29,7 @@ if(@$_POST["action"] === "export"){
     }
     $zip->close();
 
-    header('Content-Type: application/zip');
-    header("Content-Disposition: attachment; filename='" . $zipname . "'");
-    header('Content-Length: ' . filesize($zippath));
-    header("Location: /exports/" . $zipname);
-
-    die();
+    ?><script>document.location = "/exports/<?= $zipname ?>";</script><?php die();
 }
 
 $settings = DB::get("settings", ["id" => 1]);

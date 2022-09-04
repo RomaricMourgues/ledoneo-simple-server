@@ -5,7 +5,7 @@ if(@$_POST["username"]){
   $user = @DB::select("users", ["username" => $_POST["username"]])[0];
   if($user && password_verify($_POST["password"], $user["password"])){
     $_SESSION["user_id"] = $user["id"];
-    header("Location:/");
+    ?><script>document.location = "/";</script><?php die();
     die();
   }else{
     $hasError = true;

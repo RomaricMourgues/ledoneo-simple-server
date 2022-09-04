@@ -1,7 +1,7 @@
 <?php 
 if(@$_GET["logout"]){
     $_SESSION["user_id"] = null;
-    header("Location:/");
+    ?><script>document.location = "/";</script><?php die();
     die();
 }
 
