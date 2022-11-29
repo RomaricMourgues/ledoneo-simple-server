@@ -60,6 +60,30 @@ function array_carrousel($array, $delay = 5, $padding = 4){
 </html>
 
 <script type="text/javascript">
+
+    function autoMarquee() {
+        Array.from(document.getElementsByClassName("auto-marquee")).forEach(e => {
+            e.style.display = "block";
+            e.style.width = "100%";
+            e.style.overflow = "visible";
+            const delta = e.scrollWidth - e.clientWidth;
+            if(delta > 0) {
+                const delay = delta / 30;
+                e.style.transition = "transform " + (delay) + "s linear";
+                const move = () => {
+                    e.style.transform = "translateX(-" + delta + "px)";
+                    setTimeout(()=>{
+                        e.style.transform = "translateX(0px)";
+                    }, 1000* (delay + 5));
+                }
+                setInterval(()=>{
+                    move();
+                }, 1000* (delay * 2 + 10));
+                move();
+            }
+        });
+    }
+
     const loadedAt = Date.now();
     let initial = document.getElementById("content").innerHTML;
     async function checkChanges() {
@@ -70,6 +94,7 @@ function array_carrousel($array, $delay = 5, $padding = 4){
             const updated = htmlDoc.getElementById("content").innerHTML;
             if(initial !== updated){
                 document.getElementById("content").innerHTML = updated;
+                autoMarquee();
                 initial = updated;
 
                 if(Date.now() - loadedAt > 1000 * 60){
@@ -85,4 +110,6 @@ function array_carrousel($array, $delay = 5, $padding = 4){
         }
     }
     checkChanges();
+    autoMarquee();
+    
 </script>
