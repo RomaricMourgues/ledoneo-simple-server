@@ -6,7 +6,7 @@ This does not have any database and is to be used for very simple purposes.
 
 ### Install and run
 
-1. Unzip the demo database in database.zip (it should create a database folder with .json in it)
+1. Unzip the demo database in knauf-insulation.zip (it should create a database folder with multiple .json in it)
 
 2. `docker compose up -d`
 
