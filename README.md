@@ -67,7 +67,9 @@ For instance with CURL:
 
 1. `git pull`
 
-2. `docker compose up -d --build`
+2. `docker system prune -af --volumes`
+
+3. `docker compose up -d --build`
 
 ### Run it as developer
 
